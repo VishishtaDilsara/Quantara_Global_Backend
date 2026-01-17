@@ -62,12 +62,13 @@ export async function loginUser(req, res) {
     const token = jwt.sign(
       { userId: user._id, email: user.email, role: user.role, name: user.name },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1h" },
     );
 
     res.status(200).json({
       message: "Login successful",
       token,
+      role: user.role,
     });
   } catch (error) {
     res.status(500).json({
@@ -119,7 +120,7 @@ export async function updateUser(req, res) {
     const updatedUser = await User.findOneAndUpdate(
       { email },
       { $set: updateData },
-      { new: true }
+      { new: true },
     ).select("-password");
 
     if (!updatedUser) {

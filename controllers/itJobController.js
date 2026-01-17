@@ -50,7 +50,7 @@ export async function updateItJobStatus(req, res) {
     const updatedItJob = await ItJob.findByIdAndUpdate(
       id,
       { status },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedItJob) {

@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 app.use("/api/users/", userRouter);
 app.use("/api/qs-jobs/", QsJobRouter);
 app.use("/api/it-jobs/", ItJobRouter);
-app.use("api/feedbacks", feedbackRouter);
+app.use("/api/feedbacks", feedbackRouter);
 
 // Section 07: Start the server
 const PORT = env.PORT || 3000;

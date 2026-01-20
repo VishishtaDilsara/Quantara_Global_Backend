@@ -269,3 +269,51 @@ export async function sendEmailWorkDoneIT(job) {
     res.json({ message: "Message sent successfully" });
   });
 }
+
+export async function sendEmailWorkDoneQS(job) {
+  const mailOptions = {
+    from: "vishishtadilsara2002@gmail.com",
+    to: job.email,
+    subject: "Your QS Job Has Been Completed",
+    html: `
+      <div style="font-family: Arial, sans-serif; padding: 20px; background: #f7f7fc;">
+        <div style="max-width: 600px; margin: auto; background: #fff; padding: 25px;
+                    border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+
+          <h2 style="color: #4CAF50; text-align: center;">✅ Job Completed</h2>
+
+          <p>Hello <strong>${job.name}</strong>,</p>
+
+          <p>
+            We’re happy to inform you that your QS job has been successfully completed.
+          </p>
+
+          <div style="margin-top: 15px;">
+            <p><strong>Job ID:</strong> ${job._id}</p>
+            <p><strong>Service:</strong> ${job.jobCategory}</p>
+          </div>
+
+          <p style="margin-top: 20px;">
+            If you have any questions or need further assistance, feel free to reply to this email.
+          </p>
+
+          <p style="margin-top: 30px;">
+            Best regards,<br />
+            <strong>Quontara Global</strong>
+          </p>
+
+          <p style="font-size: 12px; color: #777; text-align: center; margin-top: 30px;">
+            This is an automated message. Please do not reply with sensitive information.
+          </p>
+        </div>
+      </div>
+    `,
+  };
+
+  transport.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).json({ message: "Error sending message", error });
+    }
+    res.json({ message: "Message sent successfully" });
+  });
+}

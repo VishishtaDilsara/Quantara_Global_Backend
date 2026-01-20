@@ -1,4 +1,5 @@
 import QsJob from "../models/qsJob.js";
+import { sendEmailWorkDoneQS } from "./userController.js";
 
 export async function createQsJob(req, res) {
   try {
@@ -46,14 +47,22 @@ export async function updateQsJobStatus(req, res) {
     const { id } = req.params;
     const { status } = req.body;
 
+    if (!status) {
+      return res.status(400).json({ message: "Status is required" });
+    }
+
     const updatedQsJob = await QsJob.findByIdAndUpdate(
       id,
       { status },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedQsJob) {
       return res.status(404).json({ error: "QS job not found." });
+    }
+
+    if (status === "done") {
+      await sendEmailWorkDoneQS(updatedQsJob);
     }
 
     res.status(200).json(updatedQsJob);

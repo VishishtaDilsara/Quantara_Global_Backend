@@ -1,4 +1,5 @@
 import ItJob from "../models/itJob.js";
+import { sendEmailWorkDoneIT } from "./userController.js";
 
 export async function createItJob(req, res) {
   try {
@@ -47,6 +48,10 @@ export async function updateItJobStatus(req, res) {
     const { id } = req.params;
     const { status } = req.body;
 
+    if (!status) {
+      return res.status(400).json({ message: "Status is required" });
+    }
+
     const updatedItJob = await ItJob.findByIdAndUpdate(
       id,
       { status },
@@ -55,6 +60,10 @@ export async function updateItJobStatus(req, res) {
 
     if (!updatedItJob) {
       return res.status(404).json({ message: "IT job not found." });
+    }
+
+    if (status === "done") {
+      await sendEmailWorkDoneIT(updatedItJob);
     }
 
     res.status(200).json(updatedItJob);

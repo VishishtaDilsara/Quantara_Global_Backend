@@ -11,7 +11,6 @@ import feedbackRouter from "./routes/feedbackRouter.js";
 // Section 02: Create the express app
 const app = express();
 
-
 // Section 04: Configure middlewares
 app.use(
   cors({
@@ -20,10 +19,10 @@ app.use(
       "http://localhost:5000",
       "http://localhost:3000",
       "https://www.domain_name",
-      "https://project_name-nu.vercel.app",
+      "https://quontara-global.vercel.app",
     ],
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 
@@ -32,7 +31,9 @@ connectToMongoDB();
 
 // Section 06: Define routes
 app.get("/", (req, res) => {
-  res.send("Welcome to the Quantara Global Backend! - this is a test to show the CI/CD");
+  res.send(
+    "Welcome to the Quantara Global Backend! - this is a test to show the CI/CD",
+  );
 });
 app.use("/api/users/", userRouter);
 app.use("/api/qs-jobs/", QsJobRouter);

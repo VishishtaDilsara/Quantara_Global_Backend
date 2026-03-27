@@ -18,7 +18,7 @@ app.use(
       "http://localhost:5173",
       "http://localhost:5000",
       "http://localhost:3000",
-      "https://www.domain_name",
+      "https://www.qsmonach.com",
       "https://quontara-global.vercel.app",
     ],
     credentials: true,
